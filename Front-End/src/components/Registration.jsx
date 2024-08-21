@@ -6,9 +6,19 @@ import './Registration.css';
 const RegistrationForm = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // You can send `data` to your backend here
+  const onSubmit = async (data) => {
+    try{
+        let response = await fetch("http://localhost:3001/register",{
+       method:"POST",
+       headers:{
+        "Content-Type":"application/json",
+       },
+       body:JSON.stringify(data),
+        })
+        alert("Form Submitted Successfully");
+    } catch(err){
+        console.log("Some error occured",err);
+    }   
   };
 
   return (
@@ -57,7 +67,12 @@ const RegistrationForm = () => {
               minLength: {
                 value: 6,
                 message: 'Password must be at least 6 characters',
+              },
+              maxLength:{
+                value:15,
+                message:"Password must not be longer than 15 characters"
               }
+              
             })}
           />
           {errors.password && <p>{errors.password.message}</p>}
@@ -142,5 +157,5 @@ const RegistrationForm = () => {
     </div>
   );
 };
-
+ 
 export default RegistrationForm;
