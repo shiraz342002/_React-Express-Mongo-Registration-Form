@@ -1,5 +1,6 @@
 import express, { json } from 'express'
 import { default as mongoose } from 'mongoose'
+import dotenv from 'dotenv'; 
 import cors from "cors"
 const app = express()
 
